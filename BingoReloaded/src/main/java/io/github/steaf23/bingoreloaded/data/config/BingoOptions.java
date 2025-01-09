@@ -40,6 +40,7 @@ public class BingoOptions
     public static final ConfigurationOption<Boolean> USE_INCLUDED_RESOURCE_PACK = new BooleanOption("useIncludedResourcePack")
             .withEditUpdate(ConfigurationOption.EditUpdateTime.AFTER_SERVER_RESTART);
     public static final ConfigurationOption<Boolean> ENABLE_DEBUG_LOGGING = new BooleanOption("enableDebugLogging");
+    public static final ConfigurationOption<Boolean> RESET_TEAMS_AFTER_GAME_ENDS = new BooleanOption("resetTeamsAfterGameEnds");
 
     // Lobby
     public static final ConfigurationOption<Boolean> SINGLE_PLAYER_TEAMS = new BooleanOption("singlePlayerTeams")

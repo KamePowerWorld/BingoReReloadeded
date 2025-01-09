@@ -1,6 +1,8 @@
 package io.github.steaf23.bingoreloaded.gameloop.phase;
 
 import io.github.steaf23.bingoreloaded.data.BingoMessage;
+import io.github.steaf23.bingoreloaded.data.config.BingoConfigurationData;
+import io.github.steaf23.bingoreloaded.data.config.BingoOptions;
 import io.github.steaf23.bingoreloaded.event.BingoSettingsUpdatedEvent;
 import io.github.steaf23.bingoreloaded.event.PlayerJoinedSessionWorldEvent;
 import io.github.steaf23.bingoreloaded.event.PlayerLeftSessionWorldEvent;
@@ -20,10 +22,12 @@ public class PostGamePhase implements GamePhase
 {
     private final CountdownTimer timer;
     private final BingoSession session;
+    private final BingoConfigurationData config;
 
-    public PostGamePhase(BingoSession session, int durationSeconds) {
+    public PostGamePhase(BingoSession session, BingoConfigurationData config) {
         this.session = session;
-        this.timer = new CountdownTimer(durationSeconds, session);
+        this.timer = new CountdownTimer(config.getOptionValue(BingoOptions.GAME_RESTART_TIME), session);
+        this.config = config;
     }
 
     @Override
@@ -47,6 +51,11 @@ public class PostGamePhase implements GamePhase
     public void end() {
         for (BingoTeam team : session.teamManager.getActiveTeams()) {
             team.setCard(null);
+        }
+        if (config.getOptionValue(BingoOptions.RESET_TEAMS_AFTER_GAME_ENDS)) {
+            for (BingoParticipant participant : session.teamManager.getParticipants()) {
+                session.teamManager.addMemberToTeam(participant, "auto");
+            }
         }
     }
 

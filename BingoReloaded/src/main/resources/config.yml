@@ -57,6 +57,9 @@ useIncludedResourcepack: true
 # Usually used when trying to recreate bugs.
 enableDebugLogging: false
 
+# If this setting is enabled, everyone will automatically be made to join the "auto" team at the end of the game.
+resetTeamsAfterGameEnds: false
+
 # ==========================================================================
 #    Lobby Configuration Options
 # ==========================================================================

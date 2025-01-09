@@ -206,7 +206,7 @@ public class BingoSession implements ForwardingAudience
     }
 
     public void handleGameEnded(final BingoEndedEvent event) {
-        phase = new PostGamePhase(this, config.getOptionValue(BingoOptions.GAME_RESTART_TIME));
+        phase = new PostGamePhase(this, config);
         phase.setup();
     }
 

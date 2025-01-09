@@ -46,6 +46,7 @@ public class BingoConfigurationData
         setOptionValue(BingoOptions.ENABLE_DEBUG_LOGGING, config.getBoolean("enableDebugLogging", false));
         setOptionValue(BingoOptions.USE_MAP_RENDERER, config.getBoolean("useMapRenderer", true));
         setOptionValue(BingoOptions.SHOW_ADVANCEMENT_ITEMS, config.getBoolean("showAdvancementItems", true));
+        setOptionValue(BingoOptions.RESET_TEAMS_AFTER_GAME_ENDS, config.getBoolean("resetTeamsAfterGameEnds", false));
 
         // Lobby
         setOptionValue(BingoOptions.SINGLE_PLAYER_TEAMS, config.getBoolean("singlePlayerTeams", false));
