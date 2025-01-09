@@ -54,7 +54,9 @@ public class BingoPlayer implements BingoParticipant
     private final Component displayName;
     private final ItemCooldownManager itemCooldowns;
 
-    private final int POTION_DURATION = 1728000; // 24 Hours
+    private final int POTION_DURATION = 1728000;
+
+    public String lastTeamId = ""; // 24 Hours
 
     public BingoPlayer(Player player, BingoSession session) {
         this.playerId = player.getUniqueId();

@@ -151,6 +151,22 @@ public class BingoGame implements GamePhase {
             session.getOverworld().getPlayers().forEach(p -> {
                 Team team = Bukkit.getScoreboardManager().getMainScoreboard().getEntityTeam(p);
                 BingoParticipant participant = teamManager.getPlayerAsParticipant(p);
+                // Re-create Participant if the team changes.
+                if(participant instanceof BingoPlayer player) {
+                    if(team == null) player.lastTeamId = null;
+                    else {
+                        // If the team changes
+                        if (!player.lastTeamId.equals(team.getName())){
+                            BingoTeam bTeam = player.getTeam();
+                            if(bTeam != null) {
+                                var leaveEvent = new ParticipantLeftTeamEvent(player, bTeam, session);
+                                Bukkit.getPluginManager().callEvent(leaveEvent);
+                            }
+                            participant = null;
+                        }
+                        player.lastTeamId = team.getName();
+                    }
+                }
                 // Check New Player joined a team (/team join)
                 if (participant == null && (team != null || teamManager instanceof SoloTeamManager)) {
                     // Setup Team
@@ -313,6 +329,10 @@ public class BingoGame implements GamePhase {
         }
 
         if (team == null) return;
+
+        if(participant instanceof BingoPlayer player) {
+            player.lastTeamId = team.getIdentifier();
+        }
 
         Player player = participant.sessionPlayer().get();
 
